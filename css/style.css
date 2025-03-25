@@ -19,7 +19,7 @@ h2{
     text-align: center;
     font-family: 'Titillium Web', sans-serif;
     font-size: 20px;
-    color: #FFFFFF;
+    color: #fcfcfc;
     position: static;
 }
 @media(max-height: 430px){h2{font-size: 18px;}}
@@ -27,7 +27,7 @@ h2{
 p{
     font-family: Rubik;
     font-size: 16px;
-    color: #FFFFFF;
+    color: #fcfcfc;
     position: relative;
 }
 @media(max-height: 430px){p{font-size: 14px;}}
@@ -155,6 +155,7 @@ span{
     position: relative;
 }
 .identification img{
+    width: 100%;
     bottom: 1px;
     position: relative;
 }
