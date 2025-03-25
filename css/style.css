@@ -134,12 +134,12 @@ span{
 }
 /* Fundo da barra de rolagem */
 ::-webkit-scrollbar-track {
-    background: #d1d1d133;
+    background: #F1F1F1;
     border-radius: 4px;
 }
 /* Cor da barra de rolagem */
 ::-webkit-scrollbar-thumb {
-    background: #343c64b2;
+    background: #C1C1C1;
     border-radius: 4px;
 }
 @media(max-height: 570px){.scroll{margin-top: 5px; padding-bottom: 15px;}}
