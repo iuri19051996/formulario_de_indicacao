@@ -1,42 +1,35 @@
 function enviarWhatsapp() {
-    let nomeIndicado = document.getElementById("nome_indicado").value;
-    let telefoneIndicado = document.getElementById("telefone_indicado").value;
-    let emailIndicado = document.getElementById("email_indicado").value;
-    let seuNome = document.getElementById("seu_nome").value;
+  let nomeIndicado = document.getElementById("nome_indicado").value;
+  let telefoneIndicado = document.getElementById("telefone_indicado").value;
+  let emailIndicado = document.getElementById("email_indicado").value;
+  let seuNome = document.getElementById("seu_nome").value;
 
-    if (!nomeIndicado || !telefoneIndicado || !seuNome) {
-        alert("Por favor, preencha todos os campos obrigatórios.");
-        return;
-    }
+  if (!nomeIndicado || !telefoneIndicado || !seuNome) {
+      alert("Por favor, preencha todos os campos obrigatórios.");
+      return;
+  }
 
-    let mensagem = 
-    `
-*Indicação de Cliente*
-━━━━━━━━━━━━━━━━━━━
-*Nome:* ${nomeIndicado}  
-*Telefone:* ${telefoneIndicado}  
-${emailIndicado ? `*Email:* ${emailIndicado}  ` : ''}  
-━━━━━━━━━━━━━━━━━━━
-*Indicado por:* ${seuNome}   
-    `;
+  let mensagem = 
+  `*Indicação de Cliente*\n━━━━━━━━━━━━━━━━━━━\n` +
+  `*Nome:* ${nomeIndicado}\n` +
+  `*Telefone:* ${telefoneIndicado}\n` +
+  (emailIndicado ? `*Email:* ${emailIndicado}\n` : '') +
+  `━━━━━━━━━━━━━━━━━━━\n` +
+  `*Indicado por:* ${seuNome}`;
 
-    let url = `https://wa.me/?text=${encodeURIComponent(mensagem)}`;
-    window.open(url, '_blank');
+  let url = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
+  window.open(url, '_blank');
 }
 
+// Máscara para telefone
 document.getElementById('telefone_indicado').addEventListener('input', function (e) {
-    let input = e.target.value;
-  
-    // Remove todos os caracteres que não são números
-    input = input.replace(/\D/g, '');
-  
-    // Aplica a máscara
-    if (input.length === 0) {
-      e.target.value = '';
-    } else if (input.length <= 2) {
-      e.target.value = `(${input}`;
-    } else if (input.length <= 6) {
-      e.target.value = `(${input.slice(0, 2)}) ${input.slice(2)}`;
-    }
-  });
-  
+  let input = e.target.value.replace(/\D/g, ''); // Remove não numéricos
+
+  if (input.length > 11) input = input.slice(0, 11); // Limita a 11 dígitos
+
+  let formatted = input;
+  if (input.length > 2) formatted = `(${input.slice(0, 2)}) ${input.slice(2)}`;
+  if (input.length > 6) formatted = `(${input.slice(0, 2)}) ${input.slice(2, 7)}-${input.slice(7)}`;
+
+  e.target.value = formatted;
+});
