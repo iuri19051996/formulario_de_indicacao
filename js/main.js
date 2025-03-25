@@ -17,8 +17,26 @@ function enviarWhatsapp() {
   `━━━━━━━━━━━━━━━━━━━\n` +
   `*Indicado por:* ${seuNome}`;
 
-  let url = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
-  window.open(url, '_blank');
+  let encodedMessage = encodeURIComponent(mensagem);
+
+  // Detecta se é mobile
+  let isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
+  
+  let url;
+  if (isMobile) {
+      if (/Android/i.test(navigator.userAgent)) {
+          // Força a abertura no WhatsApp no Android
+          url = `intent://send/?text=${encodedMessage}#Intent;scheme=whatsapp;package=com.whatsapp;end;`;
+      } else {
+          // Força a abertura no WhatsApp no iPhone
+          url = `whatsapp://send?text=${encodedMessage}`;
+      }
+  } else {
+      // Para desktop, abre no WhatsApp Web
+      url = `https://web.whatsapp.com/send?text=${encodedMessage}`;
+  }
+
+  window.location.href = url;
 }
 
 // Máscara para telefone
